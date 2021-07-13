@@ -6,7 +6,7 @@ my ($file, $table) = @ARGV;
 
 die "Need file\n" if (not defined $file);
 die "USE: perl csv2table.pl file.csv  tableName\n" if (  $file =~ "--help");
-die "Need table Name\n" if (not defined $table);
+die "Need table Name\n" if (not  defined $table);
 
 my $fileOutput = $table . ".sql";
 open(FW, '>' , $fileOutput) or die $!;
@@ -18,7 +18,7 @@ my $size = 0;
 my $insert;
 while(<FH>){
   my $insert = ",(\"";
-  $insert = "\ninsert into $table values("  if ( $lineNumber <= 1 );
+  $insert = "\ninsert into $table values(\""  if ( $lineNumber <= 1 );
   if ( $lineNumber == 0 ){
     print FW queryHead($table,$_);
   }else{ 
@@ -30,7 +30,7 @@ while(<FH>){
     $line =~  s/\|/\",\"/g;
     $line =~  s/\t/\",\"/g;
     $insert .=  $line . "\",now())";  
-    $lineNumber = 1 if $lineNumber > 500;
+    $lineNumber = 0 if $lineNumber > 500;
     print FW $insert;
   }
   $lineNumber++;
