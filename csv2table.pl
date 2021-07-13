@@ -28,8 +28,6 @@ while(<FH>){
   if ( $lineNumber == 0 ){
     print FW queryHead($table,$_);
   }else{
-   
-   
     my $line = $_;
     $line =~  s/\r\n//g;
     $line =~  s/\"//g;
