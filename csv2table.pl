@@ -55,11 +55,11 @@ sub queryHead {
   $line =~  s/\r\n//g;
   $line =~  s/"//g;
   $line =~  s/ //g;
-  $line =~  s/;/\" text,\n"/g;
-  $line =~  s/,/\" text,\n"/g;
-  $line =~  s/\|/\" text,\n"/g;
-  $line =~  s/\t/\" text,\n"/g;
-  $output .= $line . "\" text, \n`created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP";
+  $line =~  s/;/ text,\n/g;
+  $line =~  s/,/ text,\n/g;
+  $line =~  s/\|/ text,\n/g;
+  $line =~  s/\t/ text,\n/g;
+  $output .= $line . " text, \n`created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP";
   $output .= ") ENGINE=myisam DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
   LOCK TABLES `$table` WRITE;
   /*!40000 ALTER TABLE `$table` DISABLE KEYS */;
