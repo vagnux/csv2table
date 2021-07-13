@@ -18,7 +18,7 @@ my $size = 0;
 my $insert;
 while(<FH>){
   my $insert = ",(\"";
-  $insert = "\ninsert into $table values(\""  if ( $lineNumber <= 1 );
+  $insert = ";\ninsert into $table values(\""  if ( $lineNumber <= 1 );
   if ( $lineNumber == 0 ){
     print FW queryHead($table,$_);
   }else{ 
@@ -30,7 +30,7 @@ while(<FH>){
     $line =~  s/\|/\",\"/g;
     $line =~  s/\t/\",\"/g;
     $insert .=  $line . "\",now())";  
-    $lineNumber = 0 if $lineNumber > 500;
+    $lineNumber = 0 if $lineNumber > 50;
     print FW $insert;
   }
   $lineNumber++;
@@ -51,7 +51,7 @@ sub queryHead {
 
   DROP TABLE IF EXISTS `$table`;
   /*!50503 SET character_set_client = utf8mb4 */;
-  CREATE TABLE `$table` (\"";
+  CREATE TABLE `$table` (";
   $line =~  s/\r\n//g;
   $line =~  s/"//g;
   $line =~  s/ //g;
