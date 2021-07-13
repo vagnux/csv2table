@@ -4,15 +4,9 @@ use warnings;
 
 my ($file, $table) = @ARGV;
 
-if (not defined $file) {
-  die "Need file\n";
-}
-if (  $file =~ "--help") {
-  die "USE: perl csv2table.pl file.csv  tableName\n";
-} 
-if (not  defined $table) {
-  die "Need table Name\n";
-}
+die "Need file\n" if (not defined $file);
+die "USE: perl csv2table.pl file.csv  tableName\n" if (  $file =~ "--help");
+die "Need table Name\n" if (not defined $table);
 
 my $fileOutput = $table . ".sql";
 open(FW, '>' , $fileOutput) or die $!;
@@ -27,7 +21,7 @@ while(<FH>){
   $insert = "\ninsert into $table values("  if ( $lineNumber <= 1 );
   if ( $lineNumber == 0 ){
     print FW queryHead($table,$_);
-  }else{
+  }else{ 
     my $line = $_;
     $line =~  s/\r\n//g;
     $line =~  s/\"//g;
